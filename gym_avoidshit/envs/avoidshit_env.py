@@ -67,12 +67,15 @@ class AvoidShitEnv(gym.Env):
                 self.reward = 1
                 self.score +=1
         for index,value in enumerate(self.last_ddong_y):
-            if abs(self.last_ddong_x[index] - self.man_x) < self.ddong_width and self.man_y - self.last_ddong_y[index] < self.ddong_height:
+            if abs(self.last_ddong_x[index] - self.man_x) < self.ddong_width and abs(self.man_y - self.last_ddong_y[index]) < self.ddong_height:
+                print("my position:",str(self.man_x),",",str(self.man_y))
+                print("shit position:",str(self.last_ddong_x[index]),",",str(self.last_ddong_y[index]))
                 self.done = True
                 self.reward = -100
         
         if self.score >= 500:
             self.done = True
+
         state = self._get_game_state()
         reward = self.reward
         done = self.done
@@ -131,7 +134,7 @@ class AvoidShitEnv(gym.Env):
         return ddong_x,ddong_y
 
     def _get_game_state(self):
-        state = self.last_ddong_x + self.last_ddong_y;
+        state = self.last_ddong_x + self.last_ddong_y
         state.append(self.man_x)
 
         return np.reshape(state,[1,self.observation_size])
