@@ -1,6 +1,8 @@
 # Gym-AvoidShit
 This repository contains the Avoid Shit as a gym environment
 
+![alt text](gym-avoidshit.gif "render example")
+
 # Implementation
 Works in Ubuntu 18.04  
 you need to install X11 in linux system.
