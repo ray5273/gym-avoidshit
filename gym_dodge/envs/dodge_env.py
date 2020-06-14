@@ -61,12 +61,19 @@ class Dodge(gym.Env):
 
         # Gym Variables
         self.observation_size = 2 + self.ENEMY_NUM * 2
+        low = np.zeros(self.observation_size)
+        high = np.array([self.PAD_WIDTH, self.PAD_HEIGHT] * (self.ENEMY_NUM + 1))
         self.action_space = spaces.Box(
             low = 0.,
             high = 1., shape=(1,),
             dtype=np.float32
         )
-        self.observation_space = spaces.Discrete(self.observation_size)
+        self.observation_space = spaces.Box(
+            low = low,
+            high = high,
+            dtype=np.float32
+        )
+        print(self.observation_space.shape)
 
         self.reset()
 
