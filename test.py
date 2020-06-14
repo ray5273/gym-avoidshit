@@ -1,10 +1,12 @@
 import gym
+import gym_dodge
 import gym_avoidshit
 import random
-env = gym.make('AvoidShit-v0')
+env = gym.make('Dodge-v0')
+#env = gym.make('AvoidShit-v0')
 
 def get_action():
-    return random.randint(-1,1)
+    return random.uniform(0,1)
 
 
 for i in range(1000):
