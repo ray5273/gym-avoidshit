@@ -43,9 +43,9 @@ class AvoidShitEnv(gym.Env):
 
     def step(self, action):
         dx = 0
-        if action == -1:
+        if action == 1:
             dx -= 48
-        elif action == 1:
+        elif action == 2:
             dx += 48                                                                                                                                                    
         elif action == 0:
             dx = 0
@@ -79,7 +79,8 @@ class AvoidShitEnv(gym.Env):
         state = self._get_game_state()
         reward = self.reward
         done = self.done
-        return state, reward, done, {}
+        score = self.score
+        return state, reward, done,  score
 
     def reset(self):
         self.board_x,self.board_y = self._fill_board()
