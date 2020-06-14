@@ -3,6 +3,7 @@ import numpy as np
 import gym
 import gym_dodge
 import tensorflow.compat.v1 as tf
+from collections import deque
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '2'
 tf.disable_eager_execution()
@@ -84,17 +85,17 @@ class ReplayBuffer:
                     done=self.done_buf[idxs])
 
 def sac(env):
-    epochs              = 2000
+    epochs              = 10000
     replay_size         = 100000
-    batch_size          = 256
-    start_predict       = 10
-    max_ep_len          = 1000
+    batch_size          = 512
+    start_predict       = 20
+    max_ep_len          = 2000
     save_freq           = 10
     gamma               = 0.99
     polyak              = 0.995
-    lr                  = 0.0003
+    lr                  = 0.00013
     epsilon             = 0.0001
-    hidden_sizes        = [256, 256]
+    hidden_sizes        = [512, 512]
     render              = True
 
     action_space = env.action_space
@@ -164,7 +165,7 @@ def sac(env):
 
     o, r, d, ep_ret, ep_len = env.reset(), 0, False, 0, 0
     ep_num = 0
-
+    last100 = deque(maxlen=100)
     while(ep_num < epochs):
 
         if ep_num > start_predict:
@@ -190,7 +191,8 @@ def sac(env):
                 batch = replay_buffer.sample_batch(batch_size)
                 feed_dict = {x_ph: batch['obs1'], x2_ph: batch['obs2'], a_ph: batch['acts'], r_ph: batch['rews'], d_ph: batch['done']}
                 sess.run(step_ops, feed_dict)
-            print(ep_num, " \tLENGTH :", ep_len, " \tREWARD :", ep_ret)
+            last100.append(ep_ret)
+            print(ep_num, " \tREWARD :", ep_ret, " \tRecent 100 :", np.mean(last100))
             if ep_num%save_freq == 0 :
                 saver.save(sess, 'model/model' + str(ep_num))
             o, r, d, ep_ret, ep_len = env.reset(), 0, False, 0, 0

@@ -32,7 +32,7 @@ class enemy:
             self.angle = random.uniform(90, 270)
         self.dir_x = math.cos(self.angle * self.rad)
         self.dir_y = math.cos(self.angle * self.rad)
-        self.speed = random.uniform(4,7)
+        self.speed = random.uniform(3,6)
 
     # move 1 timestep
     def move(self):
@@ -47,17 +47,17 @@ class enemy:
 
 class Dodge(gym.Env):
     metadata = {'render.modes': ['human']
-        , 'videos.frames_per_second': 30}
+        , 'videos.frames_per_second': 60}
 
-    # 30 fps
+    # 60 fps
     def __init__(self):
         # Game Variables
         self.PAD_WIDTH = 400
         self.PAD_HEIGHT = 400
         self.MAN_SIZE = 10
         self.ENEMY_SIZE = 10
-        self.ENEMY_NUM = 60
-        self.SPEED = 6  # Player Speed
+        self.ENEMY_NUM = 50
+        self.SPEED = 5  # Player Speed
 
         # Gym Variables
         self.observation_size = 2 + self.ENEMY_NUM * 2
@@ -102,11 +102,12 @@ class Dodge(gym.Env):
         if self.score >= 3000:
             self.done = True
 
+        reward = 1
         if self.check_crash():
             self.done = True
+            reward = 0
 
         state = self._get_game_state()
-        reward = 1
         done = self.done
         score = self.score
         return state, reward, done, score
@@ -149,7 +150,7 @@ class Dodge(gym.Env):
             text = font.render('Score: {}'.format(self.score), True, (0, 0, 0))
             self.screen.blit(text, (self.PAD_WIDTH/2, 30))
             pygame.display.update()
-            clock.tick(30)
+            clock.tick(60)
 
     def close(self):
         pass
