@@ -15,9 +15,11 @@ you need to type following command
 pip3 install -e .
 ```
 
-# Test Random Action
+# Test Random Agent
 
 There is env.render() in test.py
+
+To render this game,
 
 You need to type following command
 ```
