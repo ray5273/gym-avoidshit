@@ -93,7 +93,7 @@ def sac(env):
     save_freq           = 10
     gamma               = 0.99
     polyak              = 0.995
-    lr                  = 0.0001
+    lr                  = 0.0002
     epsilon             = 0.0001
     hidden_sizes        = [1024, 512]
     render              = True
