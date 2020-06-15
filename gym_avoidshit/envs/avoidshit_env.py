@@ -36,8 +36,14 @@ class AvoidShitEnv(gym.Env):
         #Gym Variables
         self.observation_size = self.total_ddong*2+2
         self.action_space = spaces.Discrete(3)
-        self.observation_space = spaces.Discrete(self.observation_size)
-
+        # self.observation_space = spaces.Discrete(self.observation_size)
+        low = np.zeros(self.observation_size)
+        high = np.ones(self.observation_size)
+        self.observation_space = spaces.Box(
+            low = low,
+            high = high,
+            dtype=np.float32
+        )
         self.reset()
 
 
@@ -63,7 +69,7 @@ class AvoidShitEnv(gym.Env):
             if value > self.PAD_HEIGHT:
                 if self.RANDOM:
                     self.last_ddong_x[index] = int(random.randrange(0,self.PAD_WIDTH - self.man_width)/48)*48
-                self.last_ddong_y[index] = -self.ddong_height
+                self.last_ddong_y[index] = 0 
                 self.reward = 1
                 self.score +=1
         for index,value in enumerate(self.last_ddong_y):
@@ -135,9 +141,12 @@ class AvoidShitEnv(gym.Env):
         return ddong_x,ddong_y
 
     def _get_game_state(self):
-        state = self.last_ddong_x + self.last_ddong_y
-        state.append(self.man_x)
-        state.append(self.man_y)
-
+        state = []
+        for i in self.last_ddong_x:
+            state.append(i/self.PAD_WIDTH)
+        for i in self.last_ddong_y:
+            state.append(i/self.PAD_HEIGHT)
+        state.append(self.man_x/self.PAD_WIDTH)
+        state.append(self.man_y/self.PAD_HEIGHT)
         return np.reshape(state,[1,self.observation_size])
 
