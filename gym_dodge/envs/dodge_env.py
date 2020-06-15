@@ -105,7 +105,7 @@ class Dodge(gym.Env):
         reward = 1
         if self.check_crash():
             self.done = True
-            reward = 0
+            reward = -1
 
         state = self._get_game_state()
         done = self.done
@@ -113,6 +113,7 @@ class Dodge(gym.Env):
         return state, reward, done, score
 
     def reset(self):
+        random.seed(0)
         self.man_x = self.PAD_WIDTH/2
         self.man_y = self.PAD_HEIGHT/2
         self.enemies = []
@@ -170,9 +171,9 @@ class Dodge(gym.Env):
         state = []
         for enemy in self.enemies :
             x, y = enemy.getxy()
-            state.append(x)
-            state.append(y)
-        state.append(self.man_x)
-        state.append(self.man_y)
+            state.append(x/self.PAD_WIDTH)
+            state.append(y/self.PAD_HEIGHT)
+        state.append(self.man_x/self.PAD_WIDTH)
+        state.append(self.man_y/self.PAD_HEIGHT)
 
         return np.reshape(state, [1, self.observation_size])

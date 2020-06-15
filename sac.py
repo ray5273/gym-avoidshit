@@ -5,7 +5,7 @@ import gym_dodge
 import tensorflow.compat.v1 as tf
 from collections import deque
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '2'
+os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 tf.disable_eager_execution()
 
 def placeholders(*args):
@@ -85,7 +85,7 @@ class ReplayBuffer:
                     done=self.done_buf[idxs])
 
 def sac(env):
-    epochs              = 10000
+    epochs              = 50000
     replay_size         = 100000
     batch_size          = 512
     start_predict       = 20
@@ -93,9 +93,9 @@ def sac(env):
     save_freq           = 10
     gamma               = 0.99
     polyak              = 0.995
-    lr                  = 0.00013
+    lr                  = 0.0001
     epsilon             = 0.0001
-    hidden_sizes        = [512, 512]
+    hidden_sizes        = [1024, 512]
     render              = True
 
     action_space = env.action_space
