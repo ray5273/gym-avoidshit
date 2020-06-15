@@ -62,7 +62,7 @@ class Dodge(gym.Env):
         # Gym Variables
         self.observation_size = 2 + self.ENEMY_NUM * 2
         low = np.zeros(self.observation_size)
-        high = np.array([self.PAD_WIDTH, self.PAD_HEIGHT] * (self.ENEMY_NUM + 1))
+        high = np.ones(self.observation_size)
         self.action_space = spaces.Box(
             low = 0.,
             high = 1., shape=(1,),
