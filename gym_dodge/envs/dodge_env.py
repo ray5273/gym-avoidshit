@@ -61,6 +61,7 @@ class Dodge(gym.Env):
 
         self.USE_RENDER = False
         self.FIX_ENV = True
+        self.seedmin = 0
 
         # Gym Variables
         self.observation_size = 2 + self.ENEMY_NUM * 2
@@ -117,7 +118,7 @@ class Dodge(gym.Env):
 
     def reset(self):
         if self.FIX_ENV :
-            seed = random.randrange(10)
+            seed = random.randrange(self.seedmin, self.seedmin+10)
             random.seed(seed)
         self.man_x = self.PAD_WIDTH/2
         self.man_y = self.PAD_HEIGHT/2
@@ -158,8 +159,18 @@ class Dodge(gym.Env):
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.FIX_ENV = not self.FIX_ENV
-                        if self.FIX_ENV : random.seed()
-                        print("Fixed env : "+str(self.FIX_ENV))
+
+                    if event.key == pygame.K_UP:
+                        self.seedmin += 10
+                        print("Seed is " + str(self.seedmin) + " to " + str(self.seedmin + 10), end=', ')
+                    elif event.key == pygame.K_DOWN:
+                        self.seedmin -= 10
+                        print("Seed is " + str(self.seedmin) + " to " + str(self.seedmin+10), end=', ')
+                    if self.FIX_ENV:
+                        print("Env Fixed")
+                    else:
+                        random.seed()
+                        print("Env Random")
 
             self.screen.fill((255, 255, 255))
             self.screen.blit(self.man_img, (self.man_x, self.man_y))
