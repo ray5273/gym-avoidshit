@@ -52,15 +52,12 @@ class Dodge(gym.Env):
     # 60 fps
     def __init__(self):
         # Game Variables
-        self.PAD_WIDTH = 200
-        self.PAD_HEIGHT = 200
+        self.PAD_WIDTH = 400
+        self.PAD_HEIGHT = 400
         self.MAN_SIZE = 10
         self.ENEMY_SIZE = 10
-        self.ENEMY_NUM = 10
+        self.ENEMY_NUM = 50
         self.SPEED = 5  # Player Speed
-
-        self.USE_RENDER = False
-        self.fix_env = True
 
         # Gym Variables
         self.observation_size = 2 + self.ENEMY_NUM * 2
@@ -116,9 +113,7 @@ class Dodge(gym.Env):
         return state, reward, done, score
 
     def reset(self):
-        seed = random.randrange(10)
-        random.seed(seed)
-        #print("seed : "+str(seed))
+        #random.seed(0)
         self.man_x = self.PAD_WIDTH/2
         self.man_y = self.PAD_HEIGHT/2
         self.enemies = []
@@ -130,38 +125,29 @@ class Dodge(gym.Env):
         self.done = False
         return self._get_game_state()
 
-
     def render(self, mode='human', close=False):
         try:
             import pygame
         except ImportError as e:
             raise error.DependencyNotInstalled(
                 "{}. (HINT: install pygame using `pip install pygame`".format(e))
-        def render_init():
-            man_img = pygame.image.load('man.png')
-            self.man_img = pygame.transform.scale(man_img, (self.MAN_SIZE, self.MAN_SIZE))
-            enemy_img = pygame.image.load('enemy.png')
-            self.enemy_img = pygame.transform.scale(enemy_img, (self.ENEMY_SIZE, self.ENEMY_SIZE))
-        if not self.USE_RENDER :
-            render_init()
         if close:
             pygame.quit()
         else:
             # update render
+            man_img = pygame.image.load('man.png')
+            man_img = pygame.transform.scale(man_img, (self.MAN_SIZE, self.MAN_SIZE))
+            enemy_img = pygame.image.load('enemy.png')
+            enemy_img = pygame.transform.scale(enemy_img, (self.ENEMY_SIZE, self.ENEMY_SIZE))
             if self.screen is None:
                 pygame.init()
                 self.screen = pygame.display.set_mode((self.PAD_WIDTH, self.PAD_HEIGHT))
             clock = pygame.time.Clock()
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        self.fix_env = not self.fix_env
-                        print("Fixed env : "+str(self.fix_env))
             self.screen.fill((255, 255, 255))
-            self.screen.blit(self.man_img, (self.man_x, self.man_y))
+            self.screen.blit(man_img, (self.man_x, self.man_y))
             for enemy in self.enemies:
-                self.screen.blit(self.enemy_img, enemy.getxy())
-            font = pygame.font.SysFont(None, 25)
+                self.screen.blit(enemy_img, enemy.getxy())
+            font = pygame.font.SysFont(None, 30)
             text = font.render('Score: {}'.format(self.score), True, (0, 0, 0))
             self.screen.blit(text, (self.PAD_WIDTH/2, 30))
             pygame.display.update()

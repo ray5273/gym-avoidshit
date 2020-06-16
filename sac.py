@@ -5,7 +5,7 @@ import gym_dodge
 import tensorflow.compat.v1 as tf
 from collections import deque
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '2'
 tf.disable_eager_execution()
 
 def placeholders(*args):
@@ -95,7 +95,7 @@ def sac(env):
     polyak              = 0.995
     lr                  = 0.0002
     epsilon             = 0.0001
-    hidden_sizes        = [1024, 512]
+    hidden_sizes        = [512, 512, 512]
     render              = True
 
     action_space = env.action_space
