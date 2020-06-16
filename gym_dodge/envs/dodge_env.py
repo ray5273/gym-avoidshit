@@ -60,7 +60,7 @@ class Dodge(gym.Env):
         self.SPEED = 5  # Player Speed
 
         self.USE_RENDER = False
-        self.fix_env = True
+        self.FIX_ENV = True
 
         # Gym Variables
         self.observation_size = 2 + self.ENEMY_NUM * 2
@@ -116,9 +116,9 @@ class Dodge(gym.Env):
         return state, reward, done, score
 
     def reset(self):
-        seed = random.randrange(10)
-        random.seed(seed)
-        #print("seed : "+str(seed))
+        if self.FIX_ENV :
+            seed = random.randrange(10)
+            random.seed(seed)
         self.man_x = self.PAD_WIDTH/2
         self.man_y = self.PAD_HEIGHT/2
         self.enemies = []
@@ -152,11 +152,14 @@ class Dodge(gym.Env):
                 pygame.init()
                 self.screen = pygame.display.set_mode((self.PAD_WIDTH, self.PAD_HEIGHT))
             clock = pygame.time.Clock()
+
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        self.fix_env = not self.fix_env
-                        print("Fixed env : "+str(self.fix_env))
+                        self.FIX_ENV = not self.FIX_ENV
+                        if self.FIX_ENV : random.seed()
+                        print("Fixed env : "+str(self.FIX_ENV))
+
             self.screen.fill((255, 255, 255))
             self.screen.blit(self.man_img, (self.man_x, self.man_y))
             for enemy in self.enemies:
