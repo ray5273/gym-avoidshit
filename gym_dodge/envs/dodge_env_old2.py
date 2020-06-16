@@ -44,8 +44,7 @@ class enemy:
 
     def getxy(self):
         return self.x, self.y
-    def getangle(self):
-        return self.angle
+
 class Dodge(gym.Env):
     metadata = {'render.modes': ['human']
         , 'videos.frames_per_second': 60}
@@ -65,7 +64,7 @@ class Dodge(gym.Env):
         self.seedmin = 0
 
         # Gym Variables
-        self.observation_size = 2 + self.ENEMY_NUM * 3
+        self.observation_size = 2 + self.ENEMY_NUM * 2
         low = np.zeros(self.observation_size)
         high = np.ones(self.observation_size)
         self.action_space = spaces.Box(
@@ -203,7 +202,6 @@ class Dodge(gym.Env):
             x, y = enemy.getxy()
             state.append(x/self.PAD_WIDTH)
             state.append(y/self.PAD_HEIGHT)
-            state.append((enemy.getangle()%360)/360)
         state.append(self.man_x/self.PAD_WIDTH)
         state.append(self.man_y/self.PAD_HEIGHT)
 
