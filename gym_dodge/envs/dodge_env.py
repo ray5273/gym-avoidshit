@@ -143,6 +143,7 @@ class Dodge(gym.Env):
             enemy_img = pygame.image.load('enemy.png')
             self.enemy_img = pygame.transform.scale(enemy_img, (self.ENEMY_SIZE, self.ENEMY_SIZE))
         if not self.USE_RENDER :
+            self.USE_RENDER = True
             render_init()
         if close:
             pygame.quit()
