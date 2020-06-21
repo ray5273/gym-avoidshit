@@ -1,7 +1,7 @@
-# Gym-AvoidShit
+# Gym-Dodge
 This repository contains the Avoid Shit as a gym environment
 
-![alt text](gym-avoidshit.gif "render example")
+![alt text](gydodge.gif "render example")
 
 # Implementation
 Works in Ubuntu 18.04  
@@ -15,7 +15,7 @@ you need to type following command
 pip3 install -e .
 ```
 
-# Test DQN model
+# Test SAC model
 
 There is env.render() in test.py
 
@@ -32,5 +32,7 @@ DISPLAY=:0 python3 test.py
 
 # Version
 
-## AvoidShit-1.0
-Discrete action space , fixed shit generation, Normalization
+## Dodge-1.0
+Continuous action space , fixed enemy generation
+
+## 
