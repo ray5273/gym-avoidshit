@@ -1,7 +1,7 @@
 # Gym-Dodge
 This repository contains the Avoid Shit as a gym environment
 
-![alt text](gydodge.gif "render example")
+![alt text](dodge.gif "render example")
 
 # Implementation
 Works in Ubuntu 18.04  
