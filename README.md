@@ -1,4 +1,5 @@
-# Gym-AvoidShit
+
+# Gym-AvoidShit <sup id="a1">[1](#footnote1)</sup>
 This repository contains the Avoid Shit as a gym environment
 
 ![alt text](gym-avoidshit.gif "render example")
@@ -34,3 +35,7 @@ DISPLAY=:0 python3 test.py
 
 ## AvoidShit-1.0
 Discrete action space , fixed shit generation, Normalization
+
+
+><b id="footnote1">1. </b> if you want to run Gym-Dodge, change branch master to dodge [↩](#a1)
+
