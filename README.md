@@ -33,6 +33,12 @@ DISPLAY=:0 python3 test.py
 # Version
 
 ## Dodge-1.0
-Continuous action space , fixed enemy generation
+Continuous action space, Fixed enemies generation, 50 enemies  
 
-## 
+## gym_dodge/envs/dodge_env_10
+Default : Continuous action space, Fixed enemies generation, 10 enemies  
+Option :  
+In render, press  
+ Space : Changing enemies generation fixed <-> random  
+ Up, Down : Fixed enemies generation seed change
+
