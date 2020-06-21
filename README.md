@@ -15,7 +15,7 @@ you need to type following command
 pip3 install -e .
 ```
 
-# Test Random Agent
+# Test DQN model
 
 There is env.render() in test.py
 
@@ -33,4 +33,4 @@ DISPLAY=:0 python3 test.py
 # Version
 
 ## AvoidShit-1.0
-Discrete action space , fixed shit generation
+Discrete action space , fixed shit generation, Normalization
