@@ -1,5 +1,5 @@
 # Gym-Dodge
-This repository contains the Avoid Shit as a gym environment
+This repository contains the Dodge as a gym environment
 
 ![alt text](dodge.gif "render example")
 
