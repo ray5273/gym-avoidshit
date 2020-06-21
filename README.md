@@ -1,8 +1,5 @@
-
-# Gym-AvoidShit <sup id="a1">[1](#footnote1)</sup>
+# Gym-AvoidShit
 This repository contains the Avoid Shit as a gym environment
-
-![alt text](gym-avoidshit.gif "render example")
 
 # Implementation
 Works in Ubuntu 18.04  
@@ -16,11 +13,9 @@ you need to type following command
 pip3 install -e .
 ```
 
-# Test DQN model
+# Test Random Action
 
 There is env.render() in test.py
-
-To render this game,
 
 You need to type following command
 ```
@@ -34,8 +29,4 @@ DISPLAY=:0 python3 test.py
 # Version
 
 ## AvoidShit-1.0
-Discrete action space , fixed shit generation, Normalization
-
-
-><b id="footnote1">1. </b> if you want to run Gym-Dodge, change branch master to dodge [↩](#a1)
-
+Discrete action space , fixed shit generation
