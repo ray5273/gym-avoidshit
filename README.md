@@ -7,7 +7,7 @@ This repository contains the Dodge as a gym environment
 Works in Ubuntu 18.04  
 you need to install X11 in linux system.
 # Installation
-In gym-avoidshit directory,
+In gym-dodge directory,
 
 you need to type following command
 
